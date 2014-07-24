@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+body {background: url("/img/404/bg-white-noise.jpg");overflow: hidden;}
+
+#top-orange-line { height: 2px; background-color: #ff732e; position: absolute: width: 100%; }
+#top-bg-cloud-white-bg { background: url("/img/404/top-bg-cloud-white-bg.jpg") repeat-x; height: 400px; width: 100%; position: absolute; z-index: -100; }
+#top-bg-cloud-white { background: url("/img/404/top-bg-cloud-white.jpg") center top no-repeat; height: 400px; width: 100%; position: absolute; z-index: -100; }
+
+#cloud-back {z-index: 1;position: absolute; top: 120px;}
+#cloud-front {z-index: 1;position: absolute; top: 170px;}
