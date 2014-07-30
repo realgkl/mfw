@@ -203,4 +203,112 @@ class mfwCommon
 		}
 		return true;
 	}
+	
+	/**
+	 * @desc获取ip
+	 */
+	public static function getIp()
+	{
+		$result = false;
+		if ( isset( $_SERVER ) )
+		{
+			if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) )
+			{
+				$ips = explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] );
+				// 取X-FORWARDED-FOR中第一个非unknown的有效ip
+				foreach ( $ips as $ip )
+				{
+					$ip = trim( $ip );
+					if ( $ip !== 'unknown' )
+					{
+						$result = $ip;
+						break;
+					}
+				}
+			}
+			else if ( isset( $_SERVER['HTTP_CLIENT_IP'] ) )
+			{
+				$result = $_SERVER['HTTP_CLIENT_IP'];
+			}
+			else if ( isset( $_SERVER['REMOTE_ADDR'] ) )
+			{
+				$result = $_SERVER['REMOTE_ADDR'];
+			}
+		}
+		else
+		{
+			$ip = getenv( 'HTTP_X_FORWARDED_FOR' );
+			$ip = $ip === false ? getenv( 'HTTP_CLIENT_IP' ) : $ip;
+			$ip = $ip === false ? getenv( 'REMOTE_ADDR' ) : $ip;
+			$result = $ip;
+		}
+		$result = $result === false ? '0.0.0.0' : $result;
+		return $result;
+	}
+	
+	/**
+	 * @desc 获取本身域名
+	 * @since 20140724 gkl
+	 */
+	public static function getHost()
+	{
+		if ( self::isWeb() === true )
+		{
+			$res = parse_url( $_SERVER['HTTP_HOST'], PHP_URL_HOST );
+			$res = is_null( $res ) ? $_SERVER['HTTP_HOST'] : $res;
+			return $res;
+		}
+		return '';
+	}
+	
+	/**
+	 * @desc 判断是否web请求
+	 * @since 20140724 gkl
+	 */
+	public static function isWeb()
+	{
+		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && strpos( $_SERVER['SERVER_PROTOCOL'], 'HTTP' ) !== false )
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @desc 判断是否HTTPS
+	 * @since 20140724 gkl
+	 */
+	public static function isHTTPS()
+	{
+		return isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on';
+	}
+	
+	/**
+	 * @desc 注册shutdown函数
+	 * @param string|array $value 函数名称或包含对象、方法的数组
+	 * @param array $params 参数
+	 * @since 20140728 gkl
+	 */
+	public static function registerShutDown( $value, $params = array() )
+	{
+		if ( is_string( $value ) && function_exists( $value ) )
+		{
+			$new_params = array(
+				$value,
+			);
+			$new_params = array_merge( $new_params, $params );
+			call_user_func_array( 'register_shutdown_function', $new_params );
+		}
+		else if ( is_array( $value) && isset( $value[0] ) && isset( $value[1] ) )
+		{
+			if ( ( is_string( $value[0] ) && class_exists( $value[0] ) || is_object( $value[0] ) ) && is_string( $value[1] ) && method_exists( $value[0],  $value[1] ) )
+			{
+				$new_params = array(
+					$value,
+				);
+				$new_params = array_merge( $new_params, $params );
+				call_user_func_array( 'register_shutdown_function', $new_params );
+			}
+		}
+	}
 }

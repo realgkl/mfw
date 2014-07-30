@@ -9,5 +9,5 @@ mfwGlobal::setVar( 'imgVersion', 20140710 );
 mfwGlobal::setVar( 'cdn', '/' );
 mfwGlobal::setVar( '404_ACTION', 'sys' );
 mfwGlobal::setVar( '404_FUNC', 'html404' );
-mfwGlobal::setVar( 'DEFAULT_ACTION', 'demo' );
+mfwGlobal::setVar( 'DEFAULT_ACTION', 'index' );
 mfwGlobal::setVar( 'DEFAULT_FUNC', 'index' );

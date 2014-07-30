@@ -10,7 +10,7 @@ class mfwView
 	/**
 	 * @desc 布局后缀
 	 */
-	protected $ext;
+	protected static $ext;
 	
 	/**
 	 * @desc 布局文件
@@ -66,7 +66,7 @@ class mfwView
 	 * @desc 模板路径
 	 * @var string
 	 */
-	protected $view_dir;
+	protected static $view_dir;
 	
 	/**
 	 * @desc 模板文件名
@@ -83,7 +83,7 @@ class mfwView
 	/**
 	 * @desc 从view文件中获取内容
 	 */
-	protected function __loadFile( $file_name, $params )
+	protected static function __loadFile( $file_name, $params )
 	{
 		// 声明变量
 		if ( !empty( $params ) )
@@ -106,8 +106,8 @@ class mfwView
 	 */
 	protected function __loadView( $view, $params )
 	{
-		$view = $this->view_dir . $view . $this->ext;
-		$context = $this->__loadFile( $view, $params );
+		$view = self::$view_dir . $view . self::$ext;
+		$context = self::__loadFile( $view, $params );
 		if ( $context === false )
 		{
 			throw new mfwException( mfwConst::ERR_FW_VIEW_FILE_UNFOUND . "，文件名： {$view}" );
@@ -120,11 +120,11 @@ class mfwView
 	 */
 	protected function __loadLayout( $params )
 	{
-		$view = $this->view_dir . $this->layout . $this->ext;
-		$context = $this->__loadFile( $view, $params );
+		$view = self::$view_dir . $this->layout . self::$ext;
+		$context = self::__loadFile( $view, $params );
 		if ( $context === false )
 		{
-			throw new mfwException( mfwConst::ERR_FW_VIEW_FILE_UNFOUND );
+			throw new mfwException( mfwConst::ERR_FW_VIEW_FILE_UNFOUND . "，文件名： {$view}" );
 		}
 		return $context;
 	}
@@ -179,18 +179,18 @@ class mfwView
 	 */
 	public function __construct( $view_dir = '', $layout = false, $showLayout = true )
 	{
-		$this->view_dir	= defined( 'VIEW_DIR' ) ? VIEW_DIR : '';
-		$this->ext			= defined( 'VIEW_EXT' )  ? VIEW_EXT : mfwConst::VIEW_EXT;
-		$this->layout		= defined( 'VIEW_LAYOUT' ) ? VIEW_LAYOUT : 'public/layout';
+		self::$view_dir		= mfwGlobal::defined( 'VIEW_DIR' ) ? mfwGlobal::getVar('VIEW_DIR') : '';
+		self::$ext				= mfwGlobal::defined( 'VIEW_EXT' )  ? mfwGlobal::getVar('VIEW_EXT') : mfwConst::VIEW_EXT;
+		$this->layout		= mfwGlobal::defined( 'VIEW_LAYOUT' ) ? mfwGlobal::getVar('VIEW_LAYOUT') : 'public/layout';
 		if ( $layout !== false )
 		{
 			$this->layout = $layout;
 		}
 		if ( is_string( $view_dir ) && trim( $view_dir ) !== '' )
 		{
-			$this->view_dir = $view_dir;
+			self::$view_dir = $view_dir;
 		}
-		if ( !is_string( $this->view_dir ) || trim( $view_dir ) === '' )
+		if ( !is_string( self::$view_dir ) || trim( self::$view_dir ) === '' )
 		{
 			throw new mfwException( mfwConst::ERR_FW_VIEW_DIR_ILLEAGEL );
 		}
@@ -221,6 +221,10 @@ class mfwView
 			}
 			$this->__show( $content );
 		}
+		else
+		{
+			$this->__show( self::$content );
+		}
 	}
 	
 	/**
@@ -228,7 +232,7 @@ class mfwView
 	 */
 	public function loadPart( $view, $params = array() )
 	{
-		$file_name = $this->view_dir . $view . $this->ext;
+		$file_name = self::$view_dir . $view . self::$ext;
 		$content = $this->__loadFile( $file_name, $params );
 		if ( $content !== false )
 		{
@@ -319,6 +323,16 @@ class mfwView
 		{
 			throw new mfwException( mfwConst::ERR_FW_CORE_SET_PARAMS_ILLEAGEL );
 		}
+	}
+	
+	/**
+	 * @desc 设置变量值
+	 * @param string $name 变量名
+	 * @param unknow $value 值
+	 */
+	public function assign( $name, $value )
+	{
+		$this->view_vars[$name] = $value;
 	}
 	
 	/**
@@ -462,5 +476,19 @@ class mfwView
 	{
 		$url = self::__getCdn() . 'img/' . $url . '?v=' . self::__getImgVersion();
 		mfwCommon::__echo( mfwHtml::img( $id, $url ) );
+	}
+	
+	/**
+	 * @desc 载入部分模版
+	 */
+	public static function includePart( $view, $params = array() )
+	{
+		$view = self::$view_dir . $view . self::$ext;
+		$context = self::__loadFile( $view, $params );
+		if ( $context === false )
+		{
+			throw new mfwException( mfwConst::ERR_FW_VIEW_FILE_UNFOUND . "，文件名： {$view}" );
+		}
+		mfwCommon::__echo( $context );
 	}
 }

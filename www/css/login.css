@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+body {
+	background: url("../img/login/bg.jpg") repeat scroll 0 0 transparent;
+	font-size: 12px;
+}
+
+html {
+	background: none repeat scroll 0 0 #25547E;
+	margin: 0;
+	padding: 0;
+}
+.wrap {
+	animation: 600ms linear 0s normal none 1 bounceIn;
+	margin: 180px auto 0;
+	overflow: hidden;
+	width: 450px;
+}
+h1 a {
+	background: url("../images/admin/login/logo.png") no-repeat scroll 0 0 transparent;
+	display: block;
+	height: 50px;
+	margin: auto;
+	overflow: hidden;
+	text-indent: -2000em;
+	width: 185px;
+}
+.login {text-align: center;}
+.login ul, .login li {
+    text-align: left;
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+}
+.login ul {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #2D2E30;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 3px 3px 3px #CCCCCC inset;
+	margin-bottom: 15px;
+	overflow: hidden;
+}
+.login li {
+	border-top: 1px solid #D3D4D4;
+	padding: 5px;
+}
+.login li img {
+	vertical-align: top;
+}
+.login .input {
+	background: none repeat scroll 0 0 transparent;
+	border: 0 none;
+	font-family: Arial, "Microsoft Yahei";
+	font-size: 18px;
+	padding: 5px;
+	vertical-align: middle;
+	width: 225px;
+}
+.login .input:focus {
+	outline: 0 none;
+}
+.btn {
+	background-color: #549FCC;
+	border: 1px solid #2D2E30;
+	border-radius: 5px 5px 5px 5px;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-family: Arial, "Microsoft Yahei";
+	font-size: 20px;
+	height: 38px;
+	margin: 0;
+	overflow: visible;
+	padding: 0;
+	vertical-align: middle;
+	width: 248px;
+}
+.btn:hover {
+	background-position: 0 -40px;
+}
+.btn:active {
+	background-position: 0 -80px;
+}
+.placeholder {
+	color: #999999;
+}

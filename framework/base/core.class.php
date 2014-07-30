@@ -31,6 +31,12 @@ class mfwCore
 	private $conn_arr;
 	
 	/**
+	 * @desc 会话对象
+	 * @var mfwSession
+	 */
+	private $session;
+	
+	/**
 	 * @desc 设置自动加载路径
 	 * @param string/array $value 路径或数组
 	 */
@@ -85,6 +91,15 @@ class mfwCore
 	}
 	
 	/**
+	 * @desc 设置会话
+	 * @param mfwSession $session 会话对象
+	 */
+	protected function __setSession( $session )
+	{
+		$this->session = $session;
+	}
+	
+	/**
 	 * @desc 自动加载初始化
 	 */
 	protected function __initAutoload()
@@ -109,6 +124,18 @@ class mfwCore
 		$this->config_arr = array();
 		$this->autoload_dir_arr = array();
 		$this->view_dir = '';
+		$this->session = null;
+	}
+	
+	/**
+	 * @desc 析构函数
+	 */
+	public function __destruct()
+	{
+		if ( !is_null( $this->session ) )
+		{
+			unset( $this->session );
+		}
 	}
 	
 	/**
@@ -153,7 +180,9 @@ class mfwCore
 		$view = new mfwView( $this->view_dir );
 		$rd = new mfwRequestDispatcher();
 		$request = $rd->getWebRequest();
-		$request->setView( $view );
+		$request->setView( $view );		
+		$request->setSession( $this->session );
+		$request->session_start();
 		$res = $request->send();
 		unset( $view );
 		unset( $request );

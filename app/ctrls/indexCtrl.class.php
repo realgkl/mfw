@@ -7,20 +7,12 @@
  */
 class indexCtrl extends mfwWebCtrl
 {
-	public function html404()
+	/**
+	 * @desc 首页
+	 */
+	public function indexAction()
 	{
-		self::contentType();
-		self::code(404);
-		$this->view->setCss( array(
-			'main.css',
-			'404.css',
-		) );
-		$this->view->setJs( array(
-			'jquery-1.11.1.min.js',
-			'jquery.lavalamp.js',
-			'rapheal-min.js',
-			'404.js',
-		) );
-		$this->view->setView( 'public/404' );
+		var_dump( '1' );
+		$this->view->noView();
 	}
 }

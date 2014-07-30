@@ -7,7 +7,7 @@
  */
 class sysCtrl extends mfwWebCtrl
 {
-	public function html404()
+	public function html404Action()
 	{
 		self::contentType();
 		self::code(404);

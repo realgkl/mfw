@@ -77,6 +77,12 @@ class mfwWebReuqest extends mfwReuqest
 	protected $view;
 	
 	/**
+	 * @desc 会话对象
+	 * @var mfwSession
+	 */
+	protected $session;
+	
+	/**
 	 * @desc 获取404页面
 	 */
 	protected function __render404()
@@ -91,20 +97,12 @@ class mfwWebReuqest extends mfwReuqest
 	 */
 	protected function __html404()
 	{
-		ob_start();
 		$res = $this->__render404();
-		$ctrl_content = ob_get_clean();
 		if ( $res === false )
 		{
 			mfwWebCtrl::contentType();
 			mfwWebCtrl::code(404);
 			mfwCommon::__echo( mfwConst::NOTICE_HTML404 );
-		}
-		else
-		{
-			$this->view->setContent( $ctrl_content );
-			unset( $ctrl_content );
-			$this->view->display();
 		}
 		mfwCommon::__exit();
 	}
@@ -132,8 +130,9 @@ class mfwWebReuqest extends mfwReuqest
 	 */
 	protected function __send( $class, $method )
 	{
-		$class		= $this->__getClass( $class, 'Ctrl' );
+		$class			= $this->__getClass( $class, 'Ctrl' );
 		$obj			= $this->__newClass( $class );
+		$method	.= mfwConst::WEB_REQUEST_METHOD_EXT;
 		if ( $obj === false )
 		{
 			return false;
@@ -161,8 +160,31 @@ class mfwWebReuqest extends mfwReuqest
 	public function __construct( $class, $method )
 	{
 		parent::__construct( $class, $method );
-		$this->method = $method . mfwConst::WEB_REQUEST_METHOD_EXT;
 		$this->view = null;
+	}
+	
+	/**
+	 * @desc 开启会话
+	 * @since 20140724 gkl
+	 */
+	public function session_start()
+	{
+		if ( !is_null( $this->session ) )
+		{
+			$this->session->start();
+		}
+	}
+	
+	/**
+	 * @desc 会话复位
+	 * @since 20140724 gkl
+	 */
+	public function session_reset()
+	{
+		if ( !is_null( $this->session ) )
+		{
+			$this->session->reset();
+		}
 	}
 	
 	/**
@@ -198,7 +220,18 @@ class mfwWebReuqest extends mfwReuqest
 	 */
 	public function render( $class = 'index', $method = 'index' )
 	{
-		return $this->__send( $class, $method );
+		$this->class = $class;
+		$this->method = $method;
+		return $this->send();
+	}
+	
+	/**
+	 * @desc 外部跳转(url跳转)
+	 */
+	public function jump( $url )
+	{
+		header( 'location: ' . $url  );
+		mfwCommon::__exit();
 	}
 	
 	/**
@@ -227,12 +260,42 @@ class mfwWebReuqest extends mfwReuqest
 	}
 	
 	/**
+	 * @desc 设置会话对象
+	 * @param mfwSession $session
+	 */
+	public function setSession( $session )
+	{
+		$this->session = $session;
+	}
+	
+	/**
 	 * @desc 获取view对象
 	 * @return mfwView|null
 	 */
 	public function getView()
 	{
 		return $this->view;
+	}
+	
+	/**
+	 * @desc 获取会话对象
+	 * @return mfwSession
+	 * @since 20140728
+	 */
+	public function getSession()
+	{
+		return $this->session;
+	}
+	
+	/**
+	 * @desc 是否为post请求
+	 * @return boolean
+	 * @since 20140730 gkl
+	 */
+	public function isPost()
+	{
+		$request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( $_SERVER['REQUEST_METHOD'] ) : false;
+		return $request_method === mfwConst::REQUEST_METHOD_POST;
 	}
 }
 

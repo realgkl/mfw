@@ -11,6 +11,8 @@ try
 	$core->set( 'autoloadDir', array(
 		__DIR__ . '/../app/ctrls/',
 		__DIR__ . '/../app/models/',
+		__DIR__ . '/../app/acts/',
+		__DIR__ . '/../app/recs/',
 	) );
 	$core->init( 'autoload' );
 	
@@ -21,7 +23,10 @@ try
 		__DIR__ . '/../app/config/db.php',
 	) );
 	$core->init( 'config' );
-	
+
+	// 开启会话
+	$session = new mfwMemcacheSession( array( array( 'host' => 'localhost', 'port' => 11211,	), ), 'dinner_sid', 24*3600 );
+	$core->set( 'session', $session );
 	// 启动web
 	$core->execWeb();
 	unset( $core );

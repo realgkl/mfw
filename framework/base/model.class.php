@@ -371,25 +371,34 @@ class mfwDbModelMysql extends mfwDbModelBase implements mfwDbModelIntf
 		}
 		// 主键字段为空返回失败
 		if ( empty( $key_index_arr ) )
-		return false;
+		{
+			return false;
+		}
 		$sql = "update `{$table_name}` set ";
+		$inc = 0;
+		$sql_update_part = array();
 		foreach ( $data as $k => &$v )
 		{
 		// 非定位主键或唯一索引
 			if ( !in_array( $k, $key_field_arr ) )
 			{
-			$sql .= "`{$k}` = ?,";
-			$params[] = $v;
+				$sql_update_part[] = "`{$k}` = " . mfwConst::DB_OCC . $inc;
+				$params[] = $v;
+				$inc++;
 			}
 		}
-		if ( substr( $sql, strlen( $sql ) - 1, 1 ) == ',' )
-			$sql = substr( $sql, 0, strlen( $sql ) - 1 );
-		$sql .= " where 1";
+		$sql .= implode( ',', $sql_update_part );
+		unset( $sql_update_part ); 
+		$sql_where_part = array();
 		foreach ( $key_field_arr as $k => $v )
 		{
-			$sql .= " and `{$v}` = ?";
+			$sql_where_part[] = "`{$v}` = " . mfwConst::DB_OCC . $inc;;
 			$params[] = $data[$v];
+			$inc++;
 		}
+		$sql .= " where " . implode( ' and ', $sql_where_part );
+		unset( $sql_where_part );
+		unset( $inc );
 		return $sql;
 	}
 	
