@@ -284,6 +284,15 @@ class mfwCommon
 	}
 	
 	/**
+	 * @desc 判断是否是ajax
+	 * @since 20140806 gkl
+	 */
+	public static function isAjax()
+	{
+		return isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) === 'xmlhttprequest';
+	}
+	
+	/**
 	 * @desc 注册shutdown函数
 	 * @param string|array $value 函数名称或包含对象、方法的数组
 	 * @param array $params 参数

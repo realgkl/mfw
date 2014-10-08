@@ -272,12 +272,22 @@ class mfwView
 	
 	/**
 	 * @desc 设置模板文件
-	 * @param string $view
+	 * @param string $view 模板文件
 	 */
 	public function setView( $view )
 	{
 		$this->view = $view;
 	}
+	
+	/**
+	 * @desc 设置布局文件
+	 * @param string $view 布局文件
+	 */
+	public function setLayout( $view )
+	{
+		$this->layout = $view;
+	}
+	
 	
 	/**
 	 * @desc 设置css调用

@@ -189,9 +189,9 @@ class mfwDbModelBase
 		{
 			mfwCommon::__die( $msg );
 		}
-		else
+		if ( $this->show_time )
 		{
-			throw new mfwException( $msg );
+			mfwCommon::__echo( $msg );
 		}
 	}
 	

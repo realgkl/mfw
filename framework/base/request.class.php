@@ -297,6 +297,26 @@ class mfwWebReuqest extends mfwReuqest
 		$request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( $_SERVER['REQUEST_METHOD'] ) : false;
 		return $request_method === mfwConst::REQUEST_METHOD_POST;
 	}
+	
+	/**
+	 * @desc 判断是否https
+	 * @return boolean
+	 * @since 20140806 gkl
+	 */
+	public function isHttps()
+	{
+		return mfwCommon::isHTTPS();
+	}
+	
+	/**
+	 * @desc 判断是否ajax
+	 * @return boolean
+	 * @since 20140806 gkl
+	 */
+	public function isAjax()
+	{
+		return mfwCommon::isAjax();
+	}
 }
 
 /**

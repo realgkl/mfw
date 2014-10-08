@@ -147,9 +147,6 @@ class loginAct
 	public function checkToken()
 	{
 		$token = isset( $_POST['token'] ) ? $_POST['token'] : '';
-		var_dump( $_SESSION );
-		var_dump( $token );
-		var_dump( $this->token );
 		return $token === $this->token ? true : false;
 	}
 	

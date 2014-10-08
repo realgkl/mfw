@@ -21,6 +21,7 @@ class sysCtrl extends mfwWebCtrl
 				'rapheal-min.js',
 				'404.js',
 		) );
+		$this->view->setLayout( '/public/layout' );
 		$this->view->setView( 'public/404' );
 	}
 }

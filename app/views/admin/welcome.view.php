@@ -1,1 +1,3 @@
-<?php mfwView::includePart( 'public/header' ); ?>
+<div>
+hellow world!
+</div>

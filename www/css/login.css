@@ -15,15 +15,7 @@ html {
 	overflow: hidden;
 	width: 450px;
 }
-h1 a {
-	background: url("../images/admin/login/logo.png") no-repeat scroll 0 0 transparent;
-	display: block;
-	height: 50px;
-	margin: auto;
-	overflow: hidden;
-	text-indent: -2000em;
-	width: 185px;
-}
+
 .login {text-align: center;}
 .login ul, .login li {
     text-align: left;

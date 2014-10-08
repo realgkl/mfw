@@ -1,0 +1,115 @@
+@CHARSET "UTF-8";
+
+header,
+section,
+nav {
+	display: block;
+}
+
+menu,
+ol,
+ul {
+padding: 0;
+}
+
+#global-nav {
+	background: url(../img/header/jq-global-nav.png) repeat-x 0 bottom #1b1b1b;
+	border-bottom: 1px solid;
+	border-bottom-color: #FAA523;
+}
+
+#global-nav nav {
+	height: 34px;
+}
+
+#global-nav nav ul {
+	text-align: left;
+	display: inline;
+	float: left;
+	margin: 0;
+	list-style: none;
+	border-right: 1px solid rgba(255, 255, 255, 0.0976562);
+	border-left: 1px solid rgba(0, 0, 0, 0.347656);
+}
+
+#global-nav nav ul li {
+	font: bold 13px/17px "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+	display: inline-block;
+	float: left;
+	position: relative;
+	top: 1px;
+	cursor: pointer;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	text-shadow: 0 0px 2px #000;
+	border-left: 1px solid rgba(255, 255, 255, 0.0976562);
+	border-right: 1px solid rgba(0, 0, 0, 0.347656);
+}
+
+#global-nav nav ul li:hover {
+	background-color: #000;
+	color: #fff;
+}
+
+#global-nav nav ul li i {
+	height: 1em;
+}
+
+#global-nav nav ul li a {
+	color: #e6e6e6;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+	display: block;
+	padding: 8px 12px;
+}
+/**
+ * @desc 二级菜单
+ */
+/*
+#global-nav nav ul li ul {
+	padding: 0;
+	position: absolute;
+	top: 32px;
+	left: -2px;
+	width: 120px;
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transiton: opacity 0.2s;
+	transition: opacity 0.2s;
+	-webkit-box-shadow: 0 43px 5px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+	z-index: 400;
+}
+
+#global-nav nav ul li ul.wide {
+	width: 260px;
+}
+
+#global-nav nav ul li ul li {
+	background-color: #000;
+	display: block;
+	color: #fff;
+	float: none;
+}
+
+#global-nav nav ul li ul li:hover {
+	background: #000;
+}
+
+#global-nav nav ul li:hover ul {
+	display: block;
+	opacity: 1;
+	visibility: visible;
+}
+*/
+
+#global-nav nav ul.projects li.cur
+{
+	background-color: #B24926;
+}
+
+#global-nav nav ul.links {
+	float: right;
+}

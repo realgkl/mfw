@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+#grid
+{
+}
+
+#grid .ui-widget-header.toolbar
+{
+	border: none;
+	border-bottom: 1px solid #999;
+}
+
+#grid .ui-widget-header.page
+{
+	display: inline-block;
+}
+
+#grid button
+{
+	font-size: 14px;
+}
+
+#grid table
+{
+	width: 100%;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	border-spacing: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	text-align: center;	
+}
+
+#grid .text-align-right
+{
+	text-align:right;
+}
+
+#grid table tbody tr,
+#grid table tfoot tr
+{
+	height: 24px;
+}
+
+#grid table tbody tr:hover
+{
+	background-color: #f5fafa;
+	color: #4f6b72;
+}
+
+#grid table tr td,
+#grid table tr th
+{
+	border-right: 1px solid #999;
+	border-top: 1px solid #999;
+	font-size: 12px!important;
+}
+
+#grid table tr th
+{
+	border-top: none;
+	font-size: 14px!important;
+}
+
+#grid table tr td.last,
+#grid table tr th.last
+{
+	border-right: none;
+	border-top: none;	
+}
+
+#grid table tfoot tr td.last,
+#grid table tr td.last.loading
+{
+	border-top: 1px solid #999;
+}
+
+#grid table tr td.last.loading
+{
+	background: url(../img/grid/loading.gif) no-repeat center #fff;
+}
+
+#grid table tfoot .total
+{
+	font-weight: bold;
+	margin-left: 300px;
+}
+
+#grid table tfoot .total span.red
+{
+	color: red!important;
+}
+
+#grid table tfoot .page_toolbar
+{
+	float: left;
+	max-width: 300px;
+}
+
+#grid table tfoot .page_toolbar button
+{
+	height: 22px;
+}
+#grid table tfoot .page_toolbar input
+{
+	width: 30px;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0px .2em 0px .2em;
+}
+
+#grid w50
+{
+	width: 50px!important;
+}
+
+#grid w100
+{
+	width: 100px!important;
+}
+
+#grid w120
+{
+	width: 120px!important;
+}
